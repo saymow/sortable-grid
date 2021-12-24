@@ -1,4 +1,4 @@
-import { GRID_COMPONENTS_CFG, GRID_PRESET } from './grid-config.js'
+import { GRID_COMPONENTS_CFG, GRID_PRESET } from '../config/grid-config.js'
 
 export const makeComponent = (typeName) => {
   const containerEl = document.createElement('div')

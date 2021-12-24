@@ -3,10 +3,10 @@ export const GRID_PRESET = {
   padding: 3,
   size: {
     width: 640,
-    height: 520,
+    height: 460,
   },
   cellsQty: {
-    vertical: 52,
+    vertical: 46,
     horizontal: 64,
   },
   getCellSize() {
