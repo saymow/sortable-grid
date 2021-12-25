@@ -2,12 +2,12 @@ export const GRID_PRESET = {
   gap: 1,
   padding: 3,
   size: {
-    width: 640,
-    height: 460,
+    width: 720,
+    height: 500,
   },
   cellsQty: {
-    vertical: 46,
-    horizontal: 64,
+    vertical: 30,
+    horizontal: 30,
   },
   getCellSize() {
     return {
@@ -47,3 +47,6 @@ export const GRID_COMPONENTS_CFG = {
     horizontal: 12,
   },
 }
+
+export const SG_TYPENAME_ATTR = "sg-typename";
+export const SG_COMPONENT_ATTR = "sg-component";

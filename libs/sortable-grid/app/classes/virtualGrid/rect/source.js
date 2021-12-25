@@ -4,12 +4,12 @@ import { RectFactory } from './factory.js';
 export class GridRectSource {
   /**
    * @param  {HTMLElement} containmentEL
-   * @param  {string} elementsQuery
+   * @param  {string} sgElementsQuery
    * @param  {RectFactory} rectFactory
    */
-  constructor(containmentEL, elementsQuery, rectFactory) {
+  constructor(containmentEL, sgElementsQuery, rectFactory) {
     this.containmentEl = containmentEL;
-    this.elementsQuery = elementsQuery;
+    this.elementsQuery = sgElementsQuery;
     this.rectFactory = rectFactory;
   }
 

@@ -16,7 +16,7 @@ export default class Helpers {
     }, {});
 
   static getElementTypeFromLabelEl(element) {
-    const elementType = element.getAttribute('data-type')?.toLowerCase();
+    const elementType = element.getAttribute('sg-typename')?.toLowerCase();
     if (!elementType) throw new IncompatibleElementCreatorError(element, 'missing data-type attribute');
 
     return elementType;

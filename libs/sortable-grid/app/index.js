@@ -20,6 +20,10 @@ import { MAIN_STAGE_ID } from './constants.js'
 import { CreateView, ChangeView } from './views/index.js'
 
 export default class SortableGrid {
+  sgTypeNameAttr = 'sg-typename'
+  sgElementsAttr = 'sg-component'
+  sgElementsQuery = `[${this.sgElementsAttr}]`
+
   /**
    * @param {HTMLElement} stageEl
    * @param {HTMLElement} containmentEl
@@ -38,8 +42,6 @@ export default class SortableGrid {
     gridGroupElements,
     paginatorToolKitData,
   ) {
-    containmentEl.style.setProperty('position', 'relative')
-
     const {
       paginatorObservable,
       nextPageBtn,
@@ -65,7 +67,8 @@ export default class SortableGrid {
       stageEl,
       containmentEl,
       helperCloneCreator,
-      this.#getRegisteredGridElementsKeys(),
+      this.sgElementsQuery,
+      this.sgElementsAttr,
     )
     this.mainStage = new Stage(
       MAIN_STAGE_ID,
@@ -85,11 +88,7 @@ export default class SortableGrid {
       this.stagesController,
       this.rectFactory,
       this.cellsFactory,
-      new GridRectSource(
-        containmentEl,
-        this.#getRegisteredGridElementsKeys().join(','),
-        this.rectFactory,
-      ),
+      new GridRectSource(containmentEl, this.sgElementsQuery, this.rectFactory),
       this.mainStage,
     )
     this.paginatorToolKit = new PaginatorToolKit(
@@ -444,11 +443,7 @@ export default class SortableGrid {
   }
 
   #isGridElement(element) {
-    return this.storeMap.has(element?.tagName?.toLowerCase())
-  }
-
-  #getRegisteredGridElementsKeys() {
-    return Array.from(this.storeMap.keys())
+    return element.hasAttribute(this.sgElementsAttr)
   }
 
   /** @param  {boolean} shouldManipulate */

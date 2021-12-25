@@ -1,4 +1,5 @@
-import { makeComponentWithInitialSize } from '../factories/components-factory.js'
+import { makeMockedComponent } from '../factories/components-factory.js'
+import { SG_TYPENAME_ATTR } from '../config/grid-config.js'
 
 const stageEl = document.querySelector('[data-id="stage"]')
 const componentLabels = document.querySelectorAll('.component-label')
@@ -8,9 +9,9 @@ export const setupDraggableLabels = () => {
     $(labeEl).draggable({
       connectToSortable: stageEl,
       helper: () => {
-        const typeName = labeEl.getAttribute('data-type')
-        const element = makeComponentWithInitialSize(typeName)
-        element.setAttribute('data-type', typeName)
+        const typeName = labeEl.getAttribute(SG_TYPENAME_ATTR)
+        const element = makeMockedComponent(typeName)
+        element.setAttribute(SG_TYPENAME_ATTR, typeName)
 
         return element
       },

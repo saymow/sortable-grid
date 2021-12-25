@@ -38,32 +38,50 @@
         <article class="settings-bar-content-container">
           <header><h3>Components</h3></header>
           <section>
-            <div class="component-label a" data-type="a">
+            <div class="component-label a" sg-typename="a">
               <h2>A</h2>
             </div>
-            <div class="component-label b" data-type="b">
+            <div class="component-label b" sg-typename="b">
               <h2>B</h2>
             </div>
-            <div class="component-label c" data-type="c">
+            <div class="component-label c" sg-typename="c">
               <h2>C</h2>
             </div>
-            <div class="component-label d" data-type="d">
+            <div class="component-label d" sg-typename="d">
               <h2>D</h2>
             </div>
           </section>
         </article>
       </section>
       <section class="center">
-        <section data-id="stage-wrapper">
-          <article data-id="stage" class="stage"></article>
-        </section>
+        <article data-id="stage-container">
+          <section data-id="stage-wrapper" class="stage-wrapper">
+            <article data-id="stage" class="stage">
+              <section data-id="stage-page" class="stage-page"></section>
+            </article>
+          </section>
+        </article>
       </section>
     </div>
-    
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
-    <script defer="defer" src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/7.1.0/rxjs.umd.min.js"></script>
-    <script defer="defer" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script defer="defer" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script
+      defer="defer"
+      src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"
+      integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      defer="defer"
+      src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/7.1.0/rxjs.umd.min.js"
+    ></script>
+    <script
+      defer="defer"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    ></script>
+    <script
+      defer="defer"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+    ></script>
     <script type="module" src="src/index.js"></script>
   </body>
 </html>

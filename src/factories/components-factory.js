@@ -1,15 +1,29 @@
-import { GRID_COMPONENTS_CFG, GRID_PRESET } from '../config/grid-config.js'
+import {
+  GRID_COMPONENTS_CFG,
+  GRID_PRESET,
+  SG_COMPONENT_ATTR,
+  SG_TYPENAME_ATTR
+} from '../config/grid-config.js'
 
-export const makeComponent = (typeName) => {
+const makePureComponent = (typeName) => {
   const containerEl = document.createElement('div')
   const titleEl = document.createElement('h1')
 
+  containerEl.setAttribute(SG_TYPENAME_ATTR, typeName)
   containerEl.classList.add('component', typeName)
   titleEl.textContent = `${typeName}`
 
   containerEl.append(titleEl)
 
   return containerEl
+}
+
+export const makeComponent = (typeName, id) => {
+  const componentEl = makePureComponent(typeName)
+
+  componentEl.setAttribute(SG_COMPONENT_ATTR, SG_COMPONENT_ATTR)
+
+  return componentEl
 }
 
 const cellsToSize = (cells) => {
@@ -25,8 +39,8 @@ const cellsToSize = (cells) => {
   }
 }
 
-export const makeComponentWithInitialSize = (typeName) => {
-  const componentEl = makeComponent(typeName)
+export const makeMockedComponent = (typeName) => {
+  const componentEl = makePureComponent(typeName)
   const cells = GRID_COMPONENTS_CFG[typeName]
   const size = cellsToSize(cells)
 
