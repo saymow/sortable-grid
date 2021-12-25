@@ -1,7 +1,7 @@
 <h1 align="center">Sortable Grid ⚡</h1>
 
 <p align="center">
-<img align="center" src="./.github/sg-example.png"></img>
+<img align="center" src="https://github.com/saymow/sortable-grid/blob/master/.github/sg-example.PNG?raw=true"></img>
 </p>
 
 ## About
