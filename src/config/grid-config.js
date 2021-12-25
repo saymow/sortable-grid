@@ -31,19 +31,19 @@ export const SORTABLE_GRID_CFG = {
 
 export const GRID_COMPONENTS_CFG = {
   'a': {
-    vertical: 6,
-    horizontal: 8,
+    vertical: 3,
+    horizontal: 4,
   },
   'b': {
-    vertical: 15,
-    horizontal: 7,
+    vertical: 8,
+    horizontal: 6,
   },
   'c': {
     vertical: 9,
-    horizontal: 5,
+    horizontal: 12,
   },
   'd': {
-    vertical: 17,
+    vertical: 16,
     horizontal: 12,
   },
 }

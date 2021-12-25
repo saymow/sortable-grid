@@ -1,3 +1,5 @@
+import {SG} from '../../../constants.js'
+
 export class SortableGridElement {
   /**@type {HTMLElement} */
   #element;
@@ -20,7 +22,7 @@ export class SortableGridElement {
   }
 
   get type() {
-    return this.#element.tagName.toLowerCase();
+    return this.#element.getAttribute(SG.typenameAttr)
   }
 
   set isDragging(bool) {

@@ -347,6 +347,7 @@ export default class SortableGrid {
         RectFactory.ShapesEnum.COLLIDABLE_RECT,
       ),
     )
+
     $(element).resizable(this.resizeCurrentStaticBounds.boundaries)
   }
 

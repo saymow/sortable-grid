@@ -204,5 +204,11 @@ button {
 }
 
 .component h1 {
+  font-size: 3rem;
   text-transform: uppercase;
 }
+
+.component.active {
+  border: 3px dashed var(--bg-color-secondary);
+}
+

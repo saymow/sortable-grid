@@ -29,8 +29,8 @@ export class RectStaticBoundaries {
 
   #build() {
     const { width, height } = this.cellsFactory.toSize(this.cellsFactory.fromStore(this.originRect.sgElement.type));
-    const maxWidth = this.stageRect.right - this.originRect.left + this.cellsFactory.padding;
-    const maxHeight = this.stageRect.bottom - this.originRect.top + this.cellsFactory.padding;
+    const maxWidth = this.stageRect.right - this.originRect.left + this.cellsFactory.grid.padding;
+    const maxHeight = this.stageRect.bottom - this.originRect.top + this.cellsFactory.grid.padding;
     this.boundaries = new Boundaries(width, maxWidth, height, maxHeight);
 
     if (this.rectFactory.collidablePartSource.isStageElement(this.originRect.sgElement)) this.#stagePatchBuild();
@@ -109,7 +109,7 @@ export class RectDynamicBoundaries {
     return { maxWidth, maxHeight };
   }
 
-  #decrementInherentGap = (s) => s - this.staticBoundaries.cellsFactory.gap;
+  #decrementInherentGap = (s) => s - this.staticBoundaries.cellsFactory.grid.gap;
   #isBetweenInclusive = (a, b, c, d) => (c < a && d > b) || (c >= a && c <= b) || (d >= a && d <= b);
   #distance = (a, b) => a - b;
 }

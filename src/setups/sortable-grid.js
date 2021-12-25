@@ -14,6 +14,9 @@ const stageWrapperEl = document.querySelector('[data-id="stage-wrapper"]')
 const stageEl = document.querySelector('[data-id="stage"]')
 const stagePageEl = document.querySelector('[data-id="stage-page"]')
 
+let activeComponentIdSubject
+let sgGrid
+
 const makePaginatorToolKit = () => {
   return new PaginatorToolKit(
     rxjs.of({ active: 0, total: 1 }).pipe(rxjs.operators.shareReplay(1)),
@@ -33,8 +36,11 @@ const makeSortableGridConfig = () => {
 const toCssGrid = (grid) =>
   `${grid.rowStart} / ${grid.columnStart} / ${grid.rowEnd} / ${grid.columnEnd}`
 
+const getAllComponentEls = () =>
+  Array.from(document.querySelectorAll('.component'))
+
 export const setupSortableGrid = () => {
-  const sgGrid = new SortableGrid(
+  sgGrid = new SortableGrid(
     stageEl,
     stageWrapperEl,
     stageContainerEl,
@@ -48,14 +54,21 @@ export const setupSortableGrid = () => {
   sgGrid.getElementCreateObservable().subscribe(onCreateElement)
 
   sgGrid.getElementChangeObservable().subscribe(onChangeElement)
+
+  trackActiveComponent()
 }
 
 const onCreateElement = (data) => {
   const { elementType, elementGridPosition } = data.payload
   const componentEl = makeComponent(elementType)
-  
-  componentEl.setAttribute('id', Math.random().toString('16'))
+  const componentId = Math.random().toString('16')
+
+  componentEl.setAttribute('id', componentId)
   componentEl.style.setProperty('grid-area', toCssGrid(elementGridPosition))
+
+  rxjs
+    .fromEvent(componentEl, 'dblclick')
+    .subscribe(() => activeComponentIdSubject.next(componentId))
 
   stagePageEl.append(componentEl)
 }
@@ -65,4 +78,21 @@ const onChangeElement = (data) => {
   const componentEl = document.getElementById(elementId)
 
   componentEl.style.setProperty('grid-area', toCssGrid(elementNewGridPosition))
+}
+
+const trackActiveComponent = () => {
+  activeComponentIdSubject = new rxjs.Subject().pipe(
+    rxjs.operators.distinctUntilChanged(),
+  )
+
+  activeComponentIdSubject.subscribe(handleActiveComponent)
+}
+
+const handleActiveComponent = (componentId) => {
+  sgGrid.setActiveElementById(componentId)
+  getAllComponentEls().forEach((componentEl) => {
+    if (componentEl.getAttribute('id') === componentId)
+      componentEl.classList.add('active')
+    else componentEl.classList.remove('active')
+  })
 }
