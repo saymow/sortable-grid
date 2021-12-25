@@ -139,11 +139,6 @@ button {
   height: 0.4rem;
 }
 
-.container .center .stage-wrapper {
-  /* provisory */
-  position: relative;
-}
-
 .container .center .stage {
   background: var(--bg-color-tertiary);
 }

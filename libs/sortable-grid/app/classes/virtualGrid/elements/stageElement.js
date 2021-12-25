@@ -4,7 +4,7 @@ import { SortableGridStageBackdrop } from './backdrop.js';
 export class SortableGridStageElement extends SortableGridElement {
   /**
    * @typedef {{horizontal: number; vertical: number}} Cells
-   * @typedef {{UNIT_SIZE: Size padding: number; gap: number;}} CellsCfg
+   * @typedef {{cellSize: Size padding: number; gap: number;}} gridCfg
    */
 
   /** @type string */
@@ -28,16 +28,16 @@ export class SortableGridStageElement extends SortableGridElement {
    * @param  {string} id
    * @param  {HTMLElement} element
    * @param  {Cells} cells
-   * @param  {CellsCfg} cellsCfg
+   * @param  {gridCfg} gridConfig
    * @param {boolean} isPaddingLess
    */
-  constructor(id, element, cells, cellsCfg, isPaddingLess) {
+  constructor(id, element, cells, gridConfig, isPaddingLess) {
     super(element);
     this.#id = id;
     this.#backdrop = new SortableGridStageBackdrop(
       id,
       cells,
-      Object.assign({}, cellsCfg, isPaddingLess ? { padding: 0 } : {}),
+      Object.assign({}, gridConfig, isPaddingLess ? { padding: 0 } : {}),
       element
     );
 

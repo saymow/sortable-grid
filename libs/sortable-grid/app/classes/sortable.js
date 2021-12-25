@@ -1,6 +1,9 @@
+import { SG } from '../constants.js'
+
 export class Sortable {
-  constructor(stageEl, containmentEl, helperCloneCreator, sgElementsQuery, sgElementsAttr) {
-    this.sgElementsAttr = sgElementsAttr
+  constructor(stageEl, stageWrapperEl, containmentEl, helperCloneCreator) {
+    stageWrapperEl.style.setProperty('position', 'relative')
+    
     this.stageEl = stageEl
     this.containmentEl = containmentEl
     this.initialized = false
@@ -10,7 +13,7 @@ export class Sortable {
       helper: (_, element) => helperCloneCreator(element[0]),
       appendTo: containmentEl,
       cursor: 'move',
-      items: sgElementsQuery,
+      items: SG.elementsQuery,
       start: this.onStart.bind(this),
       sort: this.onSort.bind(this),
       out: this.onOut.bind(this),
@@ -110,7 +113,7 @@ export class Sortable {
   }
 
   isGridElement(element) {
-    return element.hasAttribute(this.sgElementsAttr)
+    return element.hasAttribute(SG.elementsAttr)
   }
 
   destroy() {

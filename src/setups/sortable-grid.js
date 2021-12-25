@@ -1,61 +1,68 @@
-import SortableGrid from '../../libs/sortable-grid/app/index.js'
+import {
+  SortableGrid,
+  PaginatorToolKit,
+  GridConfig,
+} from '../../libs/sortable-grid/app/index.js'
 import {
   GRID_COMPONENTS_CFG,
   SORTABLE_GRID_CFG,
 } from '../config/grid-config.js'
 import { makeComponent } from '../factories/components-factory.js'
 
+const stageContainerEl = document.querySelector('[data-id="stage-container"]')
+const stageWrapperEl = document.querySelector('[data-id="stage-wrapper"]')
 const stageEl = document.querySelector('[data-id="stage"]')
 const stagePageEl = document.querySelector('[data-id="stage-page"]')
-const stageContainerEl = document.querySelector('[data-id="stage-container"]')
 
-const createMockedPaginatorCfg = () => {
-  return {
-    nextPageBtn: document.createElement('button'),
-    prevPageBtn: document.createElement('button'),
-    paginatorObservable: rxjs
-      .of({ active: 0, total: 1 })
-      .pipe(rxjs.operators.shareReplay(1)),
-    pageFinder: () => document.createElement('div'),
-  }
+const makePaginatorToolKit = () => {
+  return new PaginatorToolKit(
+    rxjs.of({ active: 0, total: 1 }).pipe(rxjs.operators.shareReplay(1)),
+    document.createElement('button'),
+    document.createElement('button'),
+    () => document.createElement('div'),
+    500,
+  ).withGlobalTriggers()
 }
+
+const makeSortableGridConfig = () => {
+  const { UNIT_SIZE, gap, padding } = SORTABLE_GRID_CFG
+
+  return new GridConfig(UNIT_SIZE.width, UNIT_SIZE.height, padding, gap)
+}
+
+const toCssGrid = (grid) =>
+  `${grid.rowStart} / ${grid.columnStart} / ${grid.rowEnd} / ${grid.columnEnd}`
 
 export const setupSortableGrid = () => {
   const sgGrid = new SortableGrid(
     stageEl,
+    stageWrapperEl,
     stageContainerEl,
     (element) => element.cloneNode(true),
-    SORTABLE_GRID_CFG,
+    makeSortableGridConfig(),
     GRID_COMPONENTS_CFG,
     [],
-    createMockedPaginatorCfg(),
+    makePaginatorToolKit(),
   )
 
-  sgGrid
-    .getElementCreateObservable()
-    .pipe()
-    .subscribe((data) => {
-      const { elementType, elementGridPosition } = data.payload
-      const { rowStart, columnStart, rowEnd, columnEnd } = elementGridPosition
+  sgGrid.getElementCreateObservable().subscribe(onCreateElement)
 
-      const componentEl = makeComponent(elementType)
-      componentEl.setAttribute('id', Math.random().toString("16"))
+  sgGrid.getElementChangeObservable().subscribe(onChangeElement)
+}
 
-      componentEl.style.setProperty(
-        'grid-area',
-        `${rowStart} / ${columnStart} / ${rowEnd} / ${columnEnd}`,
-      )
+const onCreateElement = (data) => {
+  const { elementType, elementGridPosition } = data.payload
+  const componentEl = makeComponent(elementType)
+  
+  componentEl.setAttribute('id', Math.random().toString('16'))
+  componentEl.style.setProperty('grid-area', toCssGrid(elementGridPosition))
 
-      stagePageEl.append(componentEl)
-    })
+  stagePageEl.append(componentEl)
+}
 
-  sgGrid
-    .getElementChangeObservable()
-    .pipe()
-    .subscribe((data) => {
-      const {elementId, elementNewGridPosition} = data.payload.elementData;
-      const { rowStart, columnStart, rowEnd, columnEnd } = elementNewGridPosition
+const onChangeElement = (data) => {
+  const { elementId, elementNewGridPosition } = data.payload.elementData
+  const componentEl = document.getElementById(elementId)
 
-      document.getElementById(elementId).style.setProperty('grid-area', `${rowStart} / ${columnStart} / ${rowEnd} / ${columnEnd}`)
-    })
+  componentEl.style.setProperty('grid-area', toCssGrid(elementNewGridPosition))
 }
