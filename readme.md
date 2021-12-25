@@ -10,9 +10,10 @@
 
 ## Requirements
 
-- ✅ Create Elements by dragging them
+- ✅ Create elements by dragging them
 - ✅ Move elements around
 - ✅ Resize elements 
 - ✅ Remove elements 
 - ❌ Multiple pages
+- ❌ Show configuration json
 - ❌ Smooth dragging
