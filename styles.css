@@ -195,20 +195,43 @@ button {
 }
 
 .component {
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
+  cursor: all-scroll;
+  user-select: none;
+
   color: var(--font-primary-color);
   border: 1px solid var(--bg-color-secondary);
+}
+
+.component.active {
+  border: 4px dashed var(--bg-color-secondary);
+}
+
+.component .remove-icon {
+  display: none;
+  position: absolute;
+  cursor: pointer;
+
+  top: 0.5rem;
+  right: 0.5rem;
+
+  transition: all 200ms ease;
+}
+
+.component .remove-icon:hover {
+  opacity: 0.8;
+}
+
+.component.active .remove-icon {
+  display: block;
 }
 
 .component h1 {
   font-size: 3rem;
   text-transform: uppercase;
 }
-
-.component.active {
-  border: 3px dashed var(--bg-color-secondary);
-}
-

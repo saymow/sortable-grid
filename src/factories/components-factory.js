@@ -18,10 +18,23 @@ const makePureComponent = (typeName) => {
   return containerEl
 }
 
+{/* <i class="fas fa-skull-crossbones"></i> */}
+
+const makeRemoveIcon = () => {
+  const removeIcon = document.createElement('id')
+
+  removeIcon.classList.add('remove-icon', 'fas', 'fa-lg', 'fa-skull-crossbones')
+
+  return removeIcon;
+}
+
 export const makeComponent = (typeName, id) => {
   const componentEl = makePureComponent(typeName)
+  const removeIconEl = makeRemoveIcon()
 
+  componentEl.append(removeIconEl)
   componentEl.setAttribute(SG_COMPONENT_ATTR, SG_COMPONENT_ATTR)
+  componentEl.removeIconEl = removeIconEl;
 
   return componentEl
 }

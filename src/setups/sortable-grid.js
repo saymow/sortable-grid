@@ -70,6 +70,10 @@ const onCreateElement = (data) => {
     .fromEvent(componentEl, 'dblclick')
     .subscribe(() => activeComponentIdSubject.next(componentId))
 
+  rxjs
+    .fromEvent(componentEl.removeIconEl, 'click')
+    .subscribe(() => componentEl.remove())
+
   stagePageEl.append(componentEl)
 }
 
