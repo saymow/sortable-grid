@@ -26,6 +26,8 @@ button {
   text-rendering: optimizeLegibility;
   text-shadow: rgba(0, 0, 0, 0.01) 0 0 0.1rem;
 
+  color: var(--font-primary-color);
+
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -42,7 +44,7 @@ button {
 
 .container .settings-bar {
   height: 100%;
-  width: 30rem;
+  width: 24rem;
 
   background: var(--bg-color-secondary);
 
@@ -72,7 +74,6 @@ button {
 }
 
 .container .settings-bar .actions-container i {
-  color: var(--font-primary-color);
   cursor: pointer;
 }
 
@@ -100,8 +101,6 @@ button {
   align-items: center;
   justify-content: center;
 
-  color: var(--font-primary-color);
-
   overflow: hidden;
 
   transition: var(--after-bar-transition);
@@ -115,6 +114,53 @@ button {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.container .output-bar {
+  height: 100%;
+  width: 26rem;
+
+  background: var(--bg-color-secondary);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.container .output-bar header {
+  height: 6rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-bottom: 1px solid var(--bg-color-primary);
+}
+
+.container .output-bar header h1 {
+  margin-top: 0.5rem;
+}
+
+.container .output-bar .content-container {
+  height: calc(100% - 6rem);
+  margin: 0.5rem;
+  padding: 0.5rem;
+  
+  font-size: 1.6rem;
+  white-space: pre-wrap;
+
+  background: var(--bg-color-tertiary);
+
+  overflow-y: scroll;
+}
+
+.container .output-bar .content-container::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+.container .output-bar .content-container::-webkit-scrollbar-thumb {
+  background: var(--bg-color-secondary);
+  border-radius: 0.4rem;
 }
 
 .container .center {
@@ -153,7 +199,7 @@ button {
 }
 
 .component-label {
-  width: 28rem;
+  width: 22rem;
   height: 3rem;
 
   cursor: all-scroll;

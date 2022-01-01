@@ -3,6 +3,7 @@ import {
   setupSortableGrid,
   setupStage,
   setupUiListeners,
+  setupGridServiceLogger
 } from './setups/index.js'
 
 export class App {
@@ -11,5 +12,6 @@ export class App {
     setupDraggableLabels()
     setupUiListeners()
     setupSortableGrid()
+    setupGridServiceLogger()
   }
 }

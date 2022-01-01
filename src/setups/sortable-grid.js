@@ -3,6 +3,7 @@ import {
   PaginatorToolKit,
   GridConfig,
 } from '../../libs/sortable-grid/app/index.js'
+import { gridService } from '../services/grid.service.js'
 import {
   GRID_COMPONENTS_CFG,
   SORTABLE_GRID_CFG,
@@ -51,37 +52,61 @@ export const setupSortableGrid = () => {
     makePaginatorToolKit(),
   )
 
-  sgGrid.getElementCreateObservable().subscribe(onCreateElement)
+  sgGrid.getElementCreateObservable().subscribe(handleCreateComponent)
+  sgGrid.getElementChangeObservable().subscribe(handleChangeComponent)
 
-  sgGrid.getElementChangeObservable().subscribe(onChangeElement)
+  gridService.onAddComponent.subscribe(onCreateComponent)
+  gridService.onUpdateComponent.subscribe(onChangeComponent)
+  gridService.onRemoveComponent.subscribe(onRemoveComponent)
 
   trackActiveComponent()
 }
 
-const onCreateElement = (data) => {
+const handleCreateComponent = (data) => {
   const { elementType, elementGridPosition } = data.payload
-  const componentEl = makeComponent(elementType)
-  const componentId = Math.random().toString('16')
 
-  componentEl.setAttribute('id', componentId)
-  componentEl.style.setProperty('grid-area', toCssGrid(elementGridPosition))
+  gridService.addComponent(elementType, elementGridPosition)
+}
+
+const onCreateComponent = (component) => {
+  const { id, typeName, gridPosition } = component
+  const componentEl = makeComponent(typeName)
+
+  componentEl.setAttribute('id', id)
+  componentEl.style.setProperty('grid-area', toCssGrid(gridPosition))
 
   rxjs
     .fromEvent(componentEl, 'dblclick')
-    .subscribe(() => activeComponentIdSubject.next(componentId))
+    .subscribe(() => activeComponentIdSubject.next(id))
 
   rxjs
     .fromEvent(componentEl.removeIconEl, 'click')
-    .subscribe(() => componentEl.remove())
+    .subscribe(handleRemoveComponent.bind(handleRemoveComponent, id))
 
   stagePageEl.append(componentEl)
 }
 
-const onChangeElement = (data) => {
-  const { elementId, elementNewGridPosition } = data.payload.elementData
-  const componentEl = document.getElementById(elementId)
+const handleRemoveComponent = (id) => {
+  gridService.removeComponent(id)
+}
 
-  componentEl.style.setProperty('grid-area', toCssGrid(elementNewGridPosition))
+const onRemoveComponent = (id) => {
+  const componentEl = document.getElementById(id)
+
+  componentEl.remove()
+}
+
+const handleChangeComponent = (data) => {
+  const { elementId, elementNewGridPosition } = data.payload.elementData
+
+  gridService.updateComponent(elementId, elementNewGridPosition)
+}
+
+const onChangeComponent = (component) => {
+  const { id, gridPosition } = component
+  const componentEl = document.getElementById(id)
+
+  componentEl.style.setProperty('grid-area', toCssGrid(gridPosition))
 }
 
 const trackActiveComponent = () => {
