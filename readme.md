@@ -15,5 +15,5 @@
 - ✅ Resize elements 
 - ✅ Remove elements 
 - ❌ Multiple pages
-- ❌ Show configuration json
+- ✅ Show configuration json
 - ❌ Smooth dragging
