@@ -35,16 +35,16 @@ export const GRID_COMPONENTS_CFG = {
     horizontal: 4,
   },
   'b': {
-    vertical: 8,
-    horizontal: 6,
+    vertical: 3,
+    horizontal: 5,
   },
   'c': {
-    vertical: 9,
-    horizontal: 12,
+    vertical: 4,
+    horizontal: 4,
   },
   'd': {
-    vertical: 16,
-    horizontal: 12,
+    vertical: 4,
+    horizontal: 5,
   },
 }
 
